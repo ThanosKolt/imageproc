@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "filters/negative.hpp"
+#include "filters.hpp"
 #include "io.hpp"
 
 int main(int argc, char** argv) {
@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 
     Image img = load_image(argv[1]);
 
-    filters::negative(img.data(), img.width(), img.height());
+    filters::invert_hor(img.data(), img.width(), img.height());
     save_png("result0.png", img);
 
     filters::negative(img.data(), img.width(), img.height());

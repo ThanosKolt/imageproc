@@ -9,7 +9,7 @@ add_executable(ImageProc
     src/third_party/stb_impl.cpp
     src/io.cpp
     src/image.cpp
-    src/filters/negative.cpp
+    src/filters.cpp
 )
 
 target_include_directories(ImageProc PRIVATE third_party)
@@ -18,6 +18,11 @@ target_include_directories(ImageProc PRIVATE src)
 # Google Test
 add_subdirectory(third_party/googletest)
 
-add_executable(tests tests/test_main.cpp)
+add_executable(tests 
+    tests/test_main.cpp
+    src/filters.cpp
+)
+
 target_link_libraries(tests gtest_main)
 target_include_directories(tests PRIVATE third_party)
+target_include_directories(tests PRIVATE src)
