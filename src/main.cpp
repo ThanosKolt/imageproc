@@ -4,22 +4,22 @@
 #include <iostream>
 #include <vector>
 
+#include "filters/negative.hpp"
 #include "io.hpp"
 
 int main(int argc, char** argv) {
-    if (argc < 3) {
+    if (argc < 2) {
         std::cerr << "usage: " << argv[0] << " <in> <out>\n";
         return 1;
     }
 
-    Image original_img = load_image(argv[1]);
-    Image inverted_img(original_img.width(), original_img.height());
+    Image img = load_image(argv[1]);
 
-    for (int i = 0; i < original_img.width() * original_img.height() * (int)ChannelType::RGB; i++) {
-        inverted_img.data()[i] = 255 - original_img.data()[i];  // invert colors
-    }
+    filters::negative(img.data(), img.width(), img.height());
+    save_png("result0.png", img);
 
-    save_png(argv[2], inverted_img);
+    filters::negative(img.data(), img.width(), img.height());
+    save_png("result1.png", img);
 
     return 0;
 }
