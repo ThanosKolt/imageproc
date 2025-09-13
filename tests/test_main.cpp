@@ -23,7 +23,7 @@ TEST(FilterTest, InvertHorTest) {
     std::uint8_t expected[]{19, 20, 21, 22, 23, 24, 25, 26, 27, 10, 11, 12, 13, 14,
                             15, 16, 17, 18, 1,  2,  3,  4,  5,  6,  7,  8,  9};
 
-    filters::invert_hor(data, width, height);
+    filters::flip_vertical(data, width, height);
 
     for (int i = 0; i < width * height * 3; i++) {
         ASSERT_EQ(data[i], expected[i]);

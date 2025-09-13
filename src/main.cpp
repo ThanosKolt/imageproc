@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 
     Image img = load_image(argv[1]);
 
-    filters::invert_hor(img.data(), img.width(), img.height());
+    filters::flip_vertical(img.data(), img.width(), img.height());
     save_png("result0.png", img);
 
     filters::negative(img.data(), img.width(), img.height());
