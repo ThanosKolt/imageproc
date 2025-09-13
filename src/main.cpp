@@ -4,8 +4,6 @@
 #include <iostream>
 #include <vector>
 
-enum ChannelType { Grayscale = 1, RGB = 3, RGBA = 4 };
-
 int main(int argc, char** argv) {
     if (argc < 3) {
         std::cerr << "usage: " << argv[0] << " <in> <out>\n";
