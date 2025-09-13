@@ -20,3 +20,13 @@ void filters::flip_vertical(std::uint8_t* data, int width, int height) {
         }
     }
 }
+
+void filters::grayscale(std::uint8_t* data, int width, int height) {
+    for (int i = 0; i < width * height * 3; i += 3) {
+        // Grayscale Value = (0.299 * Red) + (0.587 * Green) + (0.114 * Blue
+        auto gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+        data[i] = gray;
+        data[i + 1] = gray;
+        data[i + 2] = gray;
+    }
+}

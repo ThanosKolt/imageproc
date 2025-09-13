@@ -29,3 +29,17 @@ TEST(FilterTest, FlipVerticalTest) {
         ASSERT_EQ(data[i], expected[i]);
     }
 }
+
+TEST(FilterTest, GrayscaleTest) {
+    int width = 1, height = 1;
+
+    std::uint8_t data[]{1, 1, 1};
+
+    std::uint8_t expected = 0.299 + 0.587 + 0.114;
+
+    filters::grayscale(data, width, height);
+
+    for (int i = 0; i < width * height * 3; i++) {
+        ASSERT_EQ(data[i], expected);
+    }
+}
