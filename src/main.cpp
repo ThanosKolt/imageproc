@@ -4,27 +4,22 @@
 #include <iostream>
 #include <vector>
 
+#include "io.hpp"
+
 int main(int argc, char** argv) {
     if (argc < 3) {
         std::cerr << "usage: " << argv[0] << " <in> <out>\n";
         return 1;
     }
 
-    int width, height, channels;
-    std::uint8_t* in = stbi_load(argv[1], &width, &height, &channels, RGB);
-    if (!in) {
-        std::cerr << "failed to load\n";
-        return 1;
+    Image original_img = load_image(argv[1]);
+    Image inverted_img(original_img.width(), original_img.height());
+
+    for (int i = 0; i < original_img.width() * original_img.height() * (int)ChannelType::RGB; i++) {
+        inverted_img.data()[i] = 255 - original_img.data()[i];  // invert colors
     }
 
-    std::vector<std::uint8_t> out(width * height * RGB);
-    for (int i = 0; i < width * height * RGB; i++)
-        out[i] = 255 - in[i];  // invert colors
+    save_png(argv[2], inverted_img);
 
-    const int stride = width * 3;
-    if (!stbi_write_png(argv[2], width, height, 3, out.data(), stride))
-        std::cerr << "failed to write\n";
-
-    stbi_image_free(in);
     return 0;
 }

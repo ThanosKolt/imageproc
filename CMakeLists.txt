@@ -7,10 +7,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(ImageProc 
     src/main.cpp
     src/third_party/stb_impl.cpp
+    src/io.cpp
+    src/image.cpp
 )
 
 target_include_directories(ImageProc PRIVATE third_party)
-
 
 # Google Test
 add_subdirectory(third_party/googletest)
