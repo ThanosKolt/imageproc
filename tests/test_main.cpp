@@ -14,7 +14,7 @@ TEST(FilterTest, NegativeTest) {
     }
 }
 
-TEST(FilterTest, InvertHorTest) {
+TEST(FilterTest, FlipVerticalTest) {
     int width = 3, height = 3;
 
     std::uint8_t data[]{1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
