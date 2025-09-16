@@ -5,7 +5,8 @@
 #include "image.hpp"
 
 void filters::negative(std::uint8_t* data, int width, int height) {
-    for (int i = 0; i < width * height * (int)ChannelType::RGB; i++) {
+    const int channels = static_cast<int>(ChannelType::RGB);
+    for (int i = 0; i < width * height * channels; i++) {
         data[i] = 255 - data[i];
     }
 }
