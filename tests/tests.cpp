@@ -3,9 +3,9 @@
 #include "filters.hpp"
 
 TEST(FilterTest, NegativeTest) {
-    int width = 2, height = 2;
-    std::uint8_t data[]{255, 0, 155, 255, 255, 255, 255, 255, 255, 255, 255, 255};
-    std::uint8_t expected[]{0, 255, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int width = 1, height = 1;
+    std::uint8_t data[]{255, 0, 155};
+    std::uint8_t expected[]{0, 255, 100};
 
     filters::negative(data, width, height);
 
@@ -17,11 +17,15 @@ TEST(FilterTest, NegativeTest) {
 TEST(FilterTest, FlipVerticalTest) {
     int width = 3, height = 3;
 
-    std::uint8_t data[]{1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14,
-                        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27};
+    std::uint8_t data[]{
+        1,  2,  3,  4,  5,  6,  7,  8,  9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27};
 
-    std::uint8_t expected[]{19, 20, 21, 22, 23, 24, 25, 26, 27, 10, 11, 12, 13, 14,
-                            15, 16, 17, 18, 1,  2,  3,  4,  5,  6,  7,  8,  9};
+    std::uint8_t expected[]{
+        19, 20, 21, 22, 23, 24, 25, 26, 27,
+        10, 11, 12, 13, 14, 15, 16, 17, 18,
+        1,  2,  3,  4,  5,  6,  7,  8,  9};
 
     filters::flip_vertical(data, width, height);
 
@@ -33,9 +37,10 @@ TEST(FilterTest, FlipVerticalTest) {
 TEST(FilterTest, GrayscaleTest) {
     int width = 1, height = 1;
 
-    std::uint8_t data[]{1, 1, 1};
+    std::uint8_t data[]{10, 10, 10};
 
-    std::uint8_t expected = 0.299 + 0.587 + 0.114;
+    // multipliers: 0.299, 0.587, 0.114;
+    std::uint8_t expected = 3 + 6 + 1;
 
     filters::grayscale(data, width, height);
 

@@ -19,7 +19,7 @@ target_include_directories(ImageProc PRIVATE src)
 add_subdirectory(third_party/googletest)
 
 add_executable(tests 
-    tests/test_main.cpp
+    tests/tests.cpp
     src/filters.cpp
 )
 
