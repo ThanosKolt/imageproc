@@ -1,26 +1,31 @@
 cmake_minimum_required(VERSION 3.20)
-project(ImageProc)
+project(imageproc)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(ImageProc 
+add_executable(imageproc 
     src/main.cpp
     src/third_party/stb_impl.cpp
     src/io.cpp
     src/image.cpp
     src/filters.cpp
+    src/cli.cpp
 )
 
-target_include_directories(ImageProc PRIVATE third_party)
-target_include_directories(ImageProc PRIVATE src)
+target_include_directories(imageproc PRIVATE third_party)
+target_include_directories(imageproc PRIVATE src)
 
 # Google Test
 add_subdirectory(third_party/googletest)
 
 add_executable(tests 
     tests/tests.cpp
+    src/third_party/stb_impl.cpp
+    src/io.cpp
+    src/image.cpp
     src/filters.cpp
+    src/cli.cpp
 )
 
 target_link_libraries(tests gtest_main)
