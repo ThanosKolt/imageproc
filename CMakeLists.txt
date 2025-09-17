@@ -9,7 +9,7 @@ add_library(imageproc
     src/io.cpp
     src/image.cpp
     src/filters.cpp
-    src/cli.cpp
+    src/parser.cpp
     src/command.cpp
 )
 

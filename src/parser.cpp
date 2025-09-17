@@ -1,9 +1,10 @@
+#include "parser.hpp"
+
 #include <iostream>
 #include <map>
 #include <stdexcept>
 #include <string_view>
 
-#include "cli.hpp"
 #include "filters.hpp"
 #include "image.hpp"
 #include "io.hpp"

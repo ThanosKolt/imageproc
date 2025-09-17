@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "cli.hpp"
 #include "filters.hpp"
+#include "parser.hpp"
 
 TEST(FilterTest, NegativeTest) {
     int width = 1, height = 1;

@@ -4,9 +4,9 @@
 #include <iostream>
 #include <vector>
 
-#include "cli.hpp"
 #include "filters.hpp"
 #include "io.hpp"
+#include "parser.hpp"
 
 int main(int argc, char** argv) {
     try {
