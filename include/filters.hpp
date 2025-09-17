@@ -1,9 +1,14 @@
 #pragma once
 #include <cstdint>
+#include <map>
+#include <string>
 
 #include "image.hpp"
 
 namespace filters {
+using FilterFn = void (*)(Image&);
+const std::map<std::string, FilterFn>& filter_table();
+
 void negative(std::uint8_t* data, int width, int height);
 void flip_vertical(std::uint8_t* data, int width, int height);
 void grayscale(std::uint8_t* data, int width, int height);

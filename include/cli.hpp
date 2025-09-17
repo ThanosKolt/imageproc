@@ -1,12 +1,8 @@
 #pragma once
+#include <memory>
 #include <optional>
 #include <string>
 
-struct Command {
-    std::string input;
-    std::string output;
-    std::string filter;
-};
+#include "command.hpp"
 
-std::optional<Command> parse_command(int argc, char** argv);
-void run_command(const Command& cmd);
+std::unique_ptr<Command> parse_command(int argc, char** argv);

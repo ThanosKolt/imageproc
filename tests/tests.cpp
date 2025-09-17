@@ -49,16 +49,18 @@ TEST(FilterTest, GrayscaleTest) {
 TEST(CliTest, ParseCommandValid) {
     const char* argv[] = {"imageproc", "in.png", "out.png", "--filter", "negative"};
     auto cmd = parse_command(5, const_cast<char**>(argv));
-    ASSERT_TRUE(cmd.has_value());
-    ASSERT_EQ(cmd->input, "in.png");
-    ASSERT_EQ(cmd->output, "out.png");
-    ASSERT_EQ(cmd->filter, "negative");
+    auto filterCmd = dynamic_cast<FilterCommand*>(cmd.get());
+    ASSERT_NE(filterCmd, nullptr);
+    ASSERT_EQ(filterCmd->input, "in.png");
+    ASSERT_EQ(filterCmd->output, "out.png");
+    ASSERT_EQ(filterCmd->filter, "negative");
 }
 
 TEST(CliTest, ParseCommandFiltersOption) {
     const char* argv[] = {"imageproc", "--filters"};
     auto cmd = parse_command(2, const_cast<char**>(argv));
-    ASSERT_FALSE(cmd.has_value());
+    auto listCmd = dynamic_cast<ListCommand*>(cmd.get());
+    ASSERT_NE(listCmd, nullptr);
 }
 
 TEST(CliTest, ParseCommandInvalidThrows) {
@@ -66,8 +68,7 @@ TEST(CliTest, ParseCommandInvalidThrows) {
     ASSERT_THROW(parse_command(2, const_cast<char**>(argv)), std::invalid_argument);
 }
 
-// run_command test for unknown filter
-TEST(CliTest, RunCommandUnknownFilter) {
-    Command cmd{"in.png", "out.png", "asdfasdfa"};
-    ASSERT_THROW(run_command(cmd), std::invalid_argument);
+TEST(CommandTest, FilterCommandInvalidFilterThrows) {
+    auto cmd = FilterCommand("in", "out", "uknownFilter");
+    ASSERT_THROW(cmd.run(), std::invalid_argument);
 }

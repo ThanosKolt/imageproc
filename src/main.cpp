@@ -11,8 +11,7 @@
 int main(int argc, char** argv) {
     try {
         auto cmd = parse_command(argc, argv);
-        if (cmd.has_value())
-            run_command(cmd.value());
+        cmd->run();
     } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
         return 1;

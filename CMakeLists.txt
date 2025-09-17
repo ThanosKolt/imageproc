@@ -10,6 +10,7 @@ add_library(imageproc
     src/image.cpp
     src/filters.cpp
     src/cli.cpp
+    src/command.cpp
 )
 
 target_include_directories(imageproc PUBLIC include third_party)
