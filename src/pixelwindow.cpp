@@ -3,8 +3,8 @@
 #include <cmath>
 
 std::optional<Pixel> PixelWindow::at(int dx, int dy) const {
-    if (std::abs(dx) > size || std::abs(dy) > size || x + dx <= 0 || x + dx > width ||
-        y + dy <= 0 || y + dy > height) {
+    if (std::abs(dx) > size || std::abs(dy) > size || x + dx < 0 || x + dx > width - 1 ||
+        y + dy < 0 || y + dy > height - 1) {
         return std::nullopt;
     }
 

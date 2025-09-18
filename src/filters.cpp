@@ -45,7 +45,6 @@ void blur(std::uint8_t* data, int width, int height) {
     std::uint8_t buffer[width * height * 3];
     std::memcpy(buffer, data, width * height * 3);
 
-    // loop?
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             PixelWindow win{data, width, height, x, y, 4};
