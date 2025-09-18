@@ -1,11 +1,14 @@
 #include "filters.hpp"
 
+#include <cstring>
+#include <pixelwindow.hpp>
+
 #include "image.hpp"
 
 namespace filters {
 const std::map<std::string, FilterFn>& filter_table() {
     static const std::map<std::string, FilterFn> table = {
-        {"negative", negative}, {"flipv", flip_vertical}, {"grayscale", grayscale}};
+        {"negative", negative}, {"flipv", flip_vertical}, {"grayscale", grayscale}, {"blur", blur}};
     return table;
 }
 
@@ -36,4 +39,38 @@ void grayscale(std::uint8_t* data, int width, int height) {
         data[i + 2] = gray;
     }
 }
+
+void blur(std::uint8_t* data, int width, int height) {
+    // make copy
+    std::uint8_t buffer[width * height * 3];
+    std::memcpy(buffer, data, width * height * 3);
+
+    // loop?
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            PixelWindow win{data, width, height, x, y, 4};
+            int r_sum = 0, g_sum = 0, b_sum = 0;
+            int count = 0;
+            for (int dx = -win.size; dx <= win.size; dx++) {
+                for (int dy = -win.size; dy <= win.size; dy++) {
+                    auto pxl = win.at(dx, dy);
+                    if (pxl.has_value()) {
+                        r_sum += pxl->r;
+                        g_sum += pxl->g;
+                        b_sum += pxl->b;
+                        count++;
+                    }
+                }
+            }
+            r_sum = r_sum / count;
+            g_sum = g_sum / count;
+            b_sum = b_sum / count;
+            int index = (y * width + x) * 3;
+            buffer[index] = r_sum;
+            buffer[index + 1] = g_sum;
+            buffer[index + 2] = b_sum;
+        }
+    }
+    std::memcpy(data, buffer, width * height * 3);
 }
+}  // namespace filters

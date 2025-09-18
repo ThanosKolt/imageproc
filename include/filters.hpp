@@ -12,6 +12,7 @@ const std::map<std::string, FilterFn>& filter_table();
 void negative(std::uint8_t* data, int width, int height);
 void flip_vertical(std::uint8_t* data, int width, int height);
 void grayscale(std::uint8_t* data, int width, int height);
+void blur(std::uint8_t* data, int width, int height);
 
 // image adapters
 inline void negative(Image& image) {
@@ -24,6 +25,10 @@ inline void flip_vertical(Image& image) {
 
 inline void grayscale(Image& image) {
     grayscale(image.data(), image.width(), image.height());
+}
+
+inline void blur(Image& image) {
+    blur(image.data(), image.width(), image.height());
 }
 
 }  // namespace filters
