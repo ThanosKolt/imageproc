@@ -1,13 +1,7 @@
 #include "parser.hpp"
 
-#include <iostream>
-#include <map>
 #include <stdexcept>
 #include <string_view>
-
-#include "filters.hpp"
-#include "image.hpp"
-#include "io.hpp"
 
 std::unique_ptr<Command> parse_command(int argc, char** argv) {
     if (argc == 2 && std::string_view(argv[1]) == "--filters") {

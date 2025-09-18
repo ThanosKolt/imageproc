@@ -1,7 +1,5 @@
 #include "filters.hpp"
 
-#include <iostream>
-
 #include "image.hpp"
 
 namespace filters {

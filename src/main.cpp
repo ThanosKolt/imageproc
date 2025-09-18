@@ -2,10 +2,6 @@
 #include <stb/stb_image_write.h>
 
 #include <iostream>
-#include <vector>
-
-#include "filters.hpp"
-#include "io.hpp"
 #include "parser.hpp"
 
 int main(int argc, char** argv) {
