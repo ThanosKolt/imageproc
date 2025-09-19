@@ -13,6 +13,7 @@ void negative(std::uint8_t* data, int width, int height);
 void flip_vertical(std::uint8_t* data, int width, int height);
 void grayscale(std::uint8_t* data, int width, int height);
 void blur(std::uint8_t* data, int width, int height);
+void edge_detect(std::uint8_t* data, int width, int height);
 
 // image adapters
 inline void negative(Image& image) {
@@ -29,6 +30,10 @@ inline void grayscale(Image& image) {
 
 inline void blur(Image& image) {
     blur(image.data(), image.width(), image.height());
+}
+
+inline void edge_detect(Image& image) {
+    edge_detect(image.data(), image.width(), image.height());
 }
 
 }  // namespace filters

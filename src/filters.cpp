@@ -1,5 +1,6 @@
 #include "filters.hpp"
 
+#include <cmath>
 #include <cstring>
 #include <pixelwindow.hpp>
 
@@ -11,7 +12,9 @@ const std::map<std::string, FilterFn>& filter_table() {
         {"negative", negative},
         {"flipv", flip_vertical},
         {"grayscale", grayscale},
-        {"blur", blur}};
+        {"blur", blur},
+        {"edge", edge_detect}};
+
     return table;
 }
 
@@ -49,7 +52,7 @@ void blur(std::uint8_t* data, int width, int height) {
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            PixelWindow win{data, width, height, x, y, 4};
+            PixelWindow win{data, width, height, x, y, 10};
             int r_sum = 0, g_sum = 0, b_sum = 0;
             int count = 0;
             for (int dx = -win.radius; dx <= win.radius; dx++) {
@@ -70,6 +73,40 @@ void blur(std::uint8_t* data, int width, int height) {
             buffer[index] = r_sum;
             buffer[index + 1] = g_sum;
             buffer[index + 2] = b_sum;
+        }
+    }
+    std::memcpy(data, buffer.data(), width * height * 3);
+}
+
+void edge_detect(std::uint8_t* data, int width, int height) {
+    grayscale(data, width, height);
+
+    std::vector<std::uint8_t> buffer(width * height * 3);
+    std::memcpy(buffer.data(), data, width * height * 3);
+
+    std::int8_t sobelX[] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
+    std::int8_t sobelY[] = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            PixelWindow win{data, width, height, x, y, 1};
+            int Gx = 0;
+            int Gy = 0;
+            for (int dx = -win.radius; dx <= win.radius; dx++) {
+                for (int dy = -win.radius; dy <= win.radius; dy++) {
+                    auto pxl = win.at(dx, dy);
+                    if (pxl.has_value()) {
+                        Gx += pxl->r * sobelX[(dy + 1) * 3 + (dx + 1)];
+                        Gy += pxl->r * sobelY[(dy + 1) * 3 + (dx + 1)];
+                    }
+                }
+            }
+            int index = (y * width + x) * 3;
+            int gradient =
+                std::min(255, static_cast<int>(std::sqrt(Gx * Gx + Gy * Gy)));
+            buffer[index] = gradient;
+            buffer[index + 1] = gradient;
+            buffer[index + 2] = gradient;
         }
     }
     std::memcpy(data, buffer.data(), width * height * 3);
