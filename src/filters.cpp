@@ -8,7 +8,10 @@
 namespace filters {
 const std::map<std::string, FilterFn>& filter_table() {
     static const std::map<std::string, FilterFn> table = {
-        {"negative", negative}, {"flipv", flip_vertical}, {"grayscale", grayscale}, {"blur", blur}};
+        {"negative", negative},
+        {"flipv", flip_vertical},
+        {"grayscale", grayscale},
+        {"blur", blur}};
     return table;
 }
 
@@ -41,7 +44,6 @@ void grayscale(std::uint8_t* data, int width, int height) {
 }
 
 void blur(std::uint8_t* data, int width, int height) {
-    // make copy
     std::uint8_t buffer[width * height * 3];
     std::memcpy(buffer, data, width * height * 3);
 
@@ -50,8 +52,8 @@ void blur(std::uint8_t* data, int width, int height) {
             PixelWindow win{data, width, height, x, y, 4};
             int r_sum = 0, g_sum = 0, b_sum = 0;
             int count = 0;
-            for (int dx = -win.size; dx <= win.size; dx++) {
-                for (int dy = -win.size; dy <= win.size; dy++) {
+            for (int dx = -win.radius; dx <= win.radius; dx++) {
+                for (int dy = -win.radius; dy <= win.radius; dy++) {
                     auto pxl = win.at(dx, dy);
                     if (pxl.has_value()) {
                         r_sum += pxl->r;

@@ -14,7 +14,7 @@ Image load_image(const std::string& path) {
     Image img(width, height);
     std::copy(data, data + width * height * 3, img.data());
     stbi_image_free(data);
-    return img;  // moved
+    return img;
 }
 
 void save_png(const std::string& path, const Image& img) {

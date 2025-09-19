@@ -2,6 +2,7 @@
 #include <stb/stb_image_write.h>
 
 #include <iostream>
+
 #include "parser.hpp"
 
 int main(int argc, char** argv) {
