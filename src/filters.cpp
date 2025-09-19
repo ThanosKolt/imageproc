@@ -44,8 +44,8 @@ void grayscale(std::uint8_t* data, int width, int height) {
 }
 
 void blur(std::uint8_t* data, int width, int height) {
-    std::uint8_t buffer[width * height * 3];
-    std::memcpy(buffer, data, width * height * 3);
+    std::vector<std::uint8_t> buffer(width * height * 3);
+    std::memcpy(buffer.data(), data, width * height * 3);
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -72,6 +72,6 @@ void blur(std::uint8_t* data, int width, int height) {
             buffer[index + 2] = b_sum;
         }
     }
-    std::memcpy(data, buffer, width * height * 3);
+    std::memcpy(data, buffer.data(), width * height * 3);
 }
 }  // namespace filters
