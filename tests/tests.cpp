@@ -59,7 +59,7 @@ TEST(CliTest, ParseCommandValid) {
 TEST(CliTest, ParseCommandFiltersOption) {
     const char* argv[] = {"imageproc", "--filters"};
     auto cmd = parse_command(2, const_cast<char**>(argv));
-    auto listCmd = dynamic_cast<ListCommand*>(cmd.get());
+    auto listCmd = dynamic_cast<HelpCommand*>(cmd.get());
     ASSERT_NE(listCmd, nullptr);
 }
 

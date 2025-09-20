@@ -13,6 +13,6 @@ struct FilterCommand : Command {
     void run() const override;
 };
 
-struct ListCommand : Command {
+struct HelpCommand : Command {
     void run() const override;
 };

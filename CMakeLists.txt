@@ -13,6 +13,7 @@ add_library(imageproc
     src/parser.cpp
     src/command.cpp
     src/pixelwindow.cpp
+    src/exceptions.cpp
 )
 
 target_include_directories(imageproc PUBLIC include third_party)

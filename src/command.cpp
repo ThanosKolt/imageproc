@@ -3,12 +3,13 @@
 #include <iostream>
 
 #include "filters.hpp"
+#include "exceptions.hpp"
 #include "io.hpp"
 
 void FilterCommand::run() const {
     auto it = filters::filter_table().find(filter);
     if (it == filters::filter_table().end()) {
-        throw std::invalid_argument("Unknown filter: " + filter + "\n");
+        throw UserException("Unknown filter: " + filter + "\nSee --help\n");
     }
 
     auto img = load_image(input);
@@ -20,8 +21,10 @@ void FilterCommand::run() const {
     std::cout << output << " saved!\n";
 }
 
-void ListCommand::run() const {
-    std::cout << "Filter options:\n";
+void HelpCommand::run() const {
+    std::cout << 
+    "Usage: ./imageproc <input> <output> --filter <name of filter>\n"
+    "Filter options:\n";
     for (const auto& [name, _] : filters::filter_table()) {
         std::cout << "- " << name << "\n";
     }
