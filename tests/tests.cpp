@@ -2,6 +2,7 @@
 
 #include "filters.hpp"
 #include "parser.hpp"
+#include "exceptions.hpp"
 
 TEST(FilterTest, NegativeTest) {
     int width = 1, height = 1;
@@ -57,7 +58,7 @@ TEST(CliTest, ParseCommandValid) {
 }
 
 TEST(CliTest, ParseCommandFiltersOption) {
-    const char* argv[] = {"imageproc", "--filters"};
+    const char* argv[] = {"imageproc", "--help"};
     auto cmd = parse_command(2, const_cast<char**>(argv));
     auto listCmd = dynamic_cast<HelpCommand*>(cmd.get());
     ASSERT_NE(listCmd, nullptr);
@@ -65,10 +66,10 @@ TEST(CliTest, ParseCommandFiltersOption) {
 
 TEST(CliTest, ParseCommandInvalidThrows) {
     const char* argv[] = {"imageproc", "in.png"};
-    ASSERT_THROW(parse_command(2, const_cast<char**>(argv)), std::invalid_argument);
+    ASSERT_THROW(parse_command(2, const_cast<char**>(argv)), UserException);
 }
 
 TEST(CommandTest, FilterCommandInvalidFilterThrows) {
     auto cmd = FilterCommand("in", "out", "uknownFilter");
-    ASSERT_THROW(cmd.run(), std::invalid_argument);
+    ASSERT_THROW(cmd.run(), UserException);
 }
