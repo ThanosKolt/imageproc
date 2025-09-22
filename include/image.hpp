@@ -14,7 +14,7 @@ class Image {
     Image(int width, int height)
         : m_width(width),
           m_height(height),
-          m_pixels(width * height * (int)ChannelType::RGB) {}
+          m_pixels(width * height * static_cast<int>(ChannelType::RGB)) {}
 
     int width() const noexcept {
         return m_width;
