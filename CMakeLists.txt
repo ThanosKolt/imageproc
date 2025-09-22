@@ -14,6 +14,7 @@ add_library(imageproc
     src/command.cpp
     src/pixelwindow.cpp
     src/exceptions.cpp
+    src/logger.cpp
 )
 
 target_include_directories(imageproc PUBLIC include third_party)
@@ -22,11 +23,16 @@ add_executable(imgproc src/main.cpp)
 target_link_libraries(imgproc PRIVATE imageproc)
 
 # Google Test
+enable_testing()
+
 add_subdirectory(third_party/googletest)
 
 add_executable(tests 
     tests/tests.cpp
     tests/test_pixelwindow.cpp
 )
+
+include(GoogleTest)
+gtest_discover_tests(tests)
 
 target_link_libraries(tests PRIVATE imageproc gtest_main)
