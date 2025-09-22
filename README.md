@@ -26,7 +26,7 @@ Developed and tested on **Linux** (GCC/Clang).
 Requires **CMake** and a C++17 compiler.  
 
 ```bash
-git clone git@github.com:ThanosKolt/imageproc.git
+git clone --recursive git@github.com:ThanosKolt/imageproc.git
 cd imageproc
 mkdir build && cd build
 cmake ..

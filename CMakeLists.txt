@@ -14,7 +14,6 @@ add_library(imageproc
     src/command.cpp
     src/pixelwindow.cpp
     src/exceptions.cpp
-    src/logger.cpp
 )
 
 target_include_directories(imageproc PUBLIC include third_party)
